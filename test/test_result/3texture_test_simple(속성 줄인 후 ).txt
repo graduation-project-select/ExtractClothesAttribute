@@ -1,0 +1,29 @@
+2020-08-28 11:47:29.446931 (카테고리 줄임)
+<bandana>
+correct count: 0/21
+accuracy: 0.00 %
+-----------------------------------
+<camo>
+correct count: 7/14
+accuracy: 50.00 %
+-----------------------------------
+<checkered>
+correct count: 4/21
+accuracy: 19.05 %
+-----------------------------------
+<dot>
+correct count: 16/17
+accuracy: 94.12 %
+-----------------------------------
+<floral>
+correct count: 5/16
+accuracy: 31.25 %
+-----------------------------------
+<leopard>
+correct count: 14/15
+accuracy: 93.33 %
+-----------------------------------
+<stripe>
+correct count: 9/11
+accuracy: 81.82 %
+-----------------------------------

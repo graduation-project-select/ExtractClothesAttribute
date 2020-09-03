@@ -1,0 +1,29 @@
+2020-08-28 19:18:51.588979
+<bandana>
+correct count: 19/21
+accuracy: 90.48 %
+-----------------------------------
+<camo>
+correct count: 14/14
+accuracy: 100.00 %
+-----------------------------------
+<checkered>
+correct count: 21/21
+accuracy: 100.00 %
+-----------------------------------
+<dot>
+correct count: 16/17
+accuracy: 94.12 %
+-----------------------------------
+<floral>
+correct count: 13/16
+accuracy: 81.25 %
+-----------------------------------
+<leopard>
+correct count: 15/15
+accuracy: 100.00 %
+-----------------------------------
+<stripe>
+correct count: 10/10
+accuracy: 100.00 %
+-----------------------------------

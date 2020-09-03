@@ -1,0 +1,65 @@
+2020-09-02 17:09:10.844724
+<blazers>
+correct count: 48/55
+accuracy: 87.27 %
+-----------------------------------
+<blouses>
+correct count: 28/44
+accuracy: 63.64 %
+-----------------------------------
+<cardigans>
+correct count: 3/56
+accuracy: 5.36 %
+-----------------------------------
+<coats>
+correct count: 10/35
+accuracy: 28.57 %
+-----------------------------------
+<dresses>
+correct count: 71/80
+accuracy: 88.75 %
+-----------------------------------
+<jackets>
+correct count: 9/56
+accuracy: 16.07 %
+-----------------------------------
+<jeans>
+correct count: 9/37
+accuracy: 24.32 %
+-----------------------------------
+<jumpsuits>
+correct count: 78/81
+accuracy: 96.30 %
+-----------------------------------
+<padding>
+correct count: 21/49
+accuracy: 42.86 %
+-----------------------------------
+<shirts>
+correct count: 25/72
+accuracy: 34.72 %
+-----------------------------------
+<shorts>
+correct count: 51/61
+accuracy: 83.61 %
+-----------------------------------
+<skirts>
+correct count: 12/24
+accuracy: 50.00 %
+-----------------------------------
+<sleeveless>
+correct count: 14/30
+accuracy: 46.67 %
+-----------------------------------
+<sweatshirts>
+correct count: 72/133
+accuracy: 54.14 %
+-----------------------------------
+<tshirts>
+correct count: 81/110
+accuracy: 73.64 %
+-----------------------------------
+<vest>
+correct count: 0/41
+accuracy: 0.00 %
+-----------------------------------
