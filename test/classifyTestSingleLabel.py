@@ -1,6 +1,6 @@
 # USAGE
 # Test texture, fabric model
-# python classifyTestSignleLabel.py --model model_texture/texture.model --labelbin model_texture/lb.pickle --directory test_data/texture_test
+# python classifyTestSingleLabel.py --model texture.model --labelbin lb.pickle --directory test_data/texture_test
 
 # import the necessary packages
 
@@ -44,10 +44,10 @@ print("[INFO] loading network...")
 model = load_model(args["model"])
 lb = pickle.loads(open(args["labelbin"], "rb").read())
 
-count = "4"
+count = "8"
 
-f = open(count+"texture_test.txt", "w")
-fs = open(count+"texture_test_simple.txt", "w")
+f = open("texture_test"+count+".txt", "w")
+fs = open("texture_test"+count+"_simple.txt", "w")
 fileContents = ""
 fileContents += str(datetime.datetime.now()) + "\n"
 
