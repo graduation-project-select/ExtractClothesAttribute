@@ -12,6 +12,7 @@ import pickle
 import cv2
 import os
 
+
 class Classification:
     def __init__(self):
         self.result = ""
@@ -61,7 +62,7 @@ class Classification:
             print(lb_test)
 
     @staticmethod
-    def classify(image, model, lb, output = [], showResult = False):
+    def classify(image, model, lb, output=[], showResult=False):
         # classify the input image
         print("[INFO] classifying image...")
         proba = model.predict(image)[0]
@@ -91,6 +92,7 @@ class Classification:
 
         return result
 
+
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-m", "--model", required=True,
@@ -104,7 +106,26 @@ args = vars(ap.parse_args())
 Classification.setGPU()
 model, lb = Classification.loadModel(args["model"], args["labelbin"])
 
-image, originalImage = Classification.imagePreprocessing(args["image"])
-result = Classification.classify(image, model, lb)
-print(result)
+# image, originalImage = Classification.imagePreprocessing(args["image"])
+# result = Classification.classify(image, model, lb)
+# print(result)
 
+#######################################
+
+# 모델로 이미지 데이터 분류(필터링 역할)
+result_root_dir = "./codibook_datas_"
+root_dir = args["image"]
+root_dir_list = os.listdir(root_dir)
+
+for prediction_label in root_dir_list:
+    sub_dir = root_dir + "/" + prediction_label
+    sub_dir_list = os.listdir(sub_dir)
+    for img in sub_dir_list:
+        img_path = sub_dir + "/" + img
+        image, originalImage = Classification.imagePreprocessing(img_path)
+        result = Classification.classify(image, model, lb)
+        save_path = result_root_dir + "/" + result
+        if not os.path.isdir(save_path):
+            os.mkdir(save_path)
+        cv2.imwrite(save_path + "/" + img, originalImage)
+        print(result)

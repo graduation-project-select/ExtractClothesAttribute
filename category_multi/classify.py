@@ -47,7 +47,7 @@ idxs = np.argsort(proba)[::-1][:2]
 for (i, j) in enumerate(idxs):
 	# build the label and draw the label on the image
 	label = "{}: {:.2f}%".format(mlb.classes_[j], proba[j] * 100)
-	cv2.putText(output, label, (10, (i * 30) + 25), 
+	cv2.putText(output, label, (10, (i * 30) + 25),
 		cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
 
 # show the probabilities for each of the individual labels

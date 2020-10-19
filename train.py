@@ -1,5 +1,7 @@
 # USAGE
+# python train.py --dataset dataset/category --model category.model --labelbin lb.pickle
 # python train.py --dataset dataset/texture --model texture.model --labelbin lb.pickle
+
 # *** Should comment cropped augmentation-data when you train category
 
 # set the matplotlib backend so figures can be saved in the background
@@ -13,6 +15,7 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import img_to_array
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
+from sklearn.utils import class_weight
 from pyimagesearch.smallervggnet import SmallerVGGNet
 import matplotlib.pyplot as plt
 from imutils import paths
@@ -51,7 +54,7 @@ args = vars(ap.parse_args())
 
 # initialize the number of epochs to train for, initial learning rate,
 # batch size, and image dimensions
-EPOCHS = 500
+EPOCHS = 1000
 INIT_LR = 1e-3
 BS = 32
 IMAGE_DIMS = (96, 96, 3) # grayScale인경우 IMAGE_DIMS = (96, 96, 1) 아닌경우 (96, 96, 3)
@@ -83,14 +86,14 @@ for imagePath in imagePaths:
 	labels.append(label)
 	# data augmentation
 	aug_images = []
-	img_flipped = tf.image.flip_left_right(origin_img)
-	img_brightness = tf.image.adjust_brightness(origin_img, -0.1)
-	img_saturated = tf.image.adjust_saturation(origin_img, 3)
 	# img_cropped = tf.image.central_crop(image, central_fraction=0.5)
-	aug_images.append(img_flipped)
+	# img_flipped = tf.image.flip_left_right(image)
+	img_brightness = tf.image.adjust_brightness(image, -0.1)
+	img_saturated = tf.image.adjust_saturation(image, 3)
+	# aug_images.append(img_cropped) # Should comment this line when you train category
+	# aug_images.append(img_flipped)
 	aug_images.append(img_brightness)
 	aug_images.append(img_saturated)
-	# aug_images.append(img_cropped) # Should comment this line when you train category
 	for aug_img in aug_images:
 		aug_img = tf.image.resize(aug_img, (IMAGE_DIMS[1], IMAGE_DIMS[0]))
 		aug_img = img_to_array(aug_img)
@@ -103,6 +106,9 @@ labels = np.array(labels)
 print("[INFO] data matrix: {:.2f}MB".format(
 	data.nbytes / (1024 * 1000.0)))
 
+# class weight -> 데이터 불균형 해결 (texture 학습시 추가함)
+class_weights = class_weight.compute_class_weight('balanced', np.unique(labels), labels)
+
 # binarize the labels
 lb = LabelBinarizer()
 labels = lb.fit_transform(labels)
@@ -113,9 +119,15 @@ labels = lb.fit_transform(labels)
 	labels, test_size=0.2, random_state=42)
 
 # construct the image generator for data augmentation
-aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.1,
-	height_shift_range=0.1, shear_range=0.2, zoom_range=0.2,
+aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.2, shear_range=0.2,
 	horizontal_flip=True, fill_mode="nearest")
+
+# texture train
+# aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.2,
+# 	height_shift_range=0.3, shear_range=0.2, zoom_range=0.3,
+# 	horizontal_flip=True, vertical_flip=True, fill_mode="nearest")
+
+
 
 # initialize the model
 print("[INFO] compiling model...")
@@ -132,7 +144,7 @@ H = model.fit(
 	x=aug.flow(trainX, trainY, batch_size=BS),
 	validation_data=(testX, testY),
 	steps_per_epoch=len(trainX) // BS,
-	epochs=EPOCHS, verbose=1)
+	epochs=EPOCHS, verbose=1, class_weight=class_weights) # class weight 추가
 
 # save the model to disk
 print("[INFO] serializing network...")

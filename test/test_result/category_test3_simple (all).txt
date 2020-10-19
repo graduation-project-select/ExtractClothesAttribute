@@ -1,4 +1,7 @@
 2020-09-03 13:45:08.939725
+활성화 함수: relu
+epoch: 1000
+
 <bottom_shorts>
 correct count: 591/681
 accuracy: 86.78 %

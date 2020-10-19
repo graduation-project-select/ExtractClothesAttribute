@@ -24,30 +24,31 @@ class SmallerVGGNet:
 			inputShape = (depth, height, width)
 			chanDim = 1
 
+		# 9/7 relu -> elu로 변경
 		# CONV => RELU => POOL
 		model.add(Conv2D(32, (3, 3), padding="same",
 			input_shape=inputShape))
-		model.add(Activation("relu"))
+		model.add(Activation("elu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(3, 3)))
 		model.add(Dropout(0.25))
 
 		# (CONV => RELU) * 2 => POOL
 		model.add(Conv2D(64, (3, 3), padding="same"))
-		model.add(Activation("relu"))
+		model.add(Activation("elu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(Conv2D(64, (3, 3), padding="same"))
-		model.add(Activation("relu"))
+		model.add(Activation("elu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(2, 2)))
 		model.add(Dropout(0.25))
 
 		# (CONV => RELU) * 2 => POOL
 		model.add(Conv2D(128, (3, 3), padding="same"))
-		model.add(Activation("relu"))
+		model.add(Activation("elu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(Conv2D(128, (3, 3), padding="same"))
-		model.add(Activation("relu"))
+		model.add(Activation("elu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(2, 2)))
 		model.add(Dropout(0.25))
@@ -55,7 +56,7 @@ class SmallerVGGNet:
 		# first (and only) set of FC => RELU layers
 		model.add(Flatten())
 		model.add(Dense(1024))
-		model.add(Activation("relu"))
+		model.add(Activation("elu"))
 		model.add(BatchNormalization())
 		model.add(Dropout(0.5))
 

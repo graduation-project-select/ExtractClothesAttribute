@@ -39,7 +39,8 @@ args = vars(ap.parse_args())
 EPOCHS = 1000
 INIT_LR = 1e-3
 BS = 64
-IMAGE_DIMS = (96, 96, 3)
+# IMAGE_DIMS = (96, 96, 3)
+IMAGE_DIMS = (96, 96, 1)  # grayscale
 
 # grab the image paths and randomly shuffle them
 print("[INFO] loading images...")
@@ -55,7 +56,8 @@ labels = []
 for imagePath in imagePaths:
 	# load the image, pre-process it, and store it in the data list
 	image = cv2.imread(imagePath)
-	origin_img = image
+	# origin_img = image
+	image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # grayscale
 	image = cv2.resize(image, (IMAGE_DIMS[1], IMAGE_DIMS[0]))
 	image = img_to_array(image)
 	data.append(image)

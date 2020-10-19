@@ -44,7 +44,7 @@ print("[INFO] loading network...")
 model = load_model(args["model"])
 lb = pickle.loads(open(args["labelbin"], "rb").read())
 
-count = "1"
+count = "10"
 
 test_type = "category"
 f = open(test_type+"_test"+count+".txt", "w")
@@ -59,6 +59,7 @@ fs_fileContents += str(datetime.datetime.now()) + "\n"
 def verifyLabel(prediction_label, image):
     # pre-process the image for classification
     image = cv2.resize(image, (96, 96))
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # grayscale
     image = image.astype("float") / 255.0
     image = img_to_array(image)
     image = np.expand_dims(image, axis=0)
